@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ja" translate="no">
+<head>
+<meta charset="utf-8">
+<title>Flash 三角関数</title>
+<script>
+
+var arr = [
+['c_0', '1'],
+['c_11po6', 'r3o2'],
+['c_2p', '1'],
+['c_2po3', 'm1o2'],
+['c_3po2', '0'],
+['c_3po4', 'm1or2'],
+['c_4po3', 'm1o2'],
+['c_5po3', '1o2'],
+['c_5po4', 'm1or2'],
+['c_5po6', 'mr3o2'],
+['c_7po4', '1or2'],
+['c_7po6', 'mr3o2'],
+['c_p', 'm1'],
+['c_po2', '0'],
+['c_po3', '1o2'],
+['c_po4', '1or2'],
+['c_po6', 'r3o2'],
+['s_0', '0'],
+['s_11po6', 'm1o2'],
+['s_2p', '0'],
+['s_2po3', 'r3o2'],
+['s_3po2', 'm1'],
+['s_3po4', '1or2'],
+['s_4po3', 'mr3o2'],
+['s_5po3', 'mr3o2'],
+['s_5po4', 'm1or2'],
+['s_5po6', '1o2'],
+['s_7po4', 'm1or2'],
+['s_7po6', 'm1o2'],
+['s_p', '0'],
+['s_po2', '1'],
+['s_po3', 'r3o2'],
+['s_po4', '1or2'],
+['s_po6', '1o2'],
+['t_0', '0'],
+['t_11po6', 'm1or3'],
+['t_2p', '0'],
+['t_2po3', 'mr3'],
+['t_3po2', 'undef'],
+['t_3po4', 'm1'],
+['t_4po3', 'r3'],
+['t_5po3', 'mr3'],
+['t_5po4', '1'],
+['t_5po6', 'm1or3'],
+['t_7po4', 'm1'],
+['t_7po6', '1or3'],
+['t_p', '0'],
+['t_po2', 'undef'],
+['t_po3', 'r3'],
+['t_po4', '1'],
+['t_po6', '1or3']
+];
+var arrlen = arr.length;
+
+var qcnt = sessionStorage.getItem('saveqcnt_func1');
+var rcnt = sessionStorage.getItem('savercnt_func1');
+var seq = JSON.parse(sessionStorage.getItem('saveseqstr_func1'));
+
+var r;
+if (qcnt % arrlen == 0) {
+qcnt = 0;
+if (rcnt < 100) {rcnt++} else {rcnt = 1};
+seq = [];
+for (i=1; i<=arrlen; i++) {
+while (true) {
+r = Math.floor(Math.random() * arrlen);
+if (!seq.includes(r)) {seq.push(r); break};
+};
+};
+};
+qcnt++;
+
+var proc;
+window.onload = function() {
+proc = setInterval("cntup()", 1000);
+};
+var sec = 0;
+function cntup() {
+sec++;
+document.getElementById('timer').textContent = sec;
+if (sec >= 60) {
+clearInterval(proc);
+};
+};
+
+</script>
+</head>
+<body>
+
+<p>
+<span style="font-size:30px; color:blue">Round <!--
+--><span id="rcntdisp"></span>&ensp;(<!--
+--><span id="qcntdisp"></span>/<!--
+--><span id="arrlendisp"></span>)<!--
+--></span><!--
+--><span id="timer" style="font-size:30px; color:blue; margin-left:40px">0</span>
+</p>
+
+<p>
+<img id="qimg" style="margin-top:20px">
+</p>
+
+<p>
+<input type="button" value="Answer" style="width:120px; height:40px; font-size:20px" onclick="document.getElementById('aimg').style.display='block'"><!--
+--><input type="button" value="Next" style="width:120px; height:40px; font-size:20px; margin-left:15px" onclick="location.reload()">
+</p>
+
+<p>
+<img id="aimg" style="display:none">
+</p>
+
+<script>
+
+document.getElementById('qimg').src = arr[seq[qcnt-1]][0] + ".png";
+document.getElementById('aimg').src = arr[seq[qcnt-1]][1] + ".png";
+
+document.getElementById('rcntdisp').textContent = rcnt;
+document.getElementById('qcntdisp').textContent = qcnt;
+document.getElementById('arrlendisp').textContent = arrlen;
+
+sessionStorage.setItem('saveqcnt_func1', qcnt);
+sessionStorage.setItem('savercnt_func1', rcnt);
+sessionStorage.setItem('saveseqstr_func1', JSON.stringify(seq));
+
+</script>
+
+</body>
+</html>
